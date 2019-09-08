@@ -6,7 +6,7 @@ const REG = {
   ts: /\.ts$/
 };
 
-function createCompilerHost({ store, onWriteFile }, ...args) {
+function createCompilerHost({store, onWriteFile}, ...args) {
   let host = ts.createCompilerHost(...args);
 
   function fileExists(fileName) {
@@ -75,7 +75,7 @@ function createCompilerHost({ store, onWriteFile }, ...args) {
 }
 
 function compile(sourceFileMap, options = {}) {
-  let { compilerOptions, onWriteFile } = options;
+  let {compilerOptions, onWriteFile} = options;
 
   let store = {
     sourceFileMap: {},
@@ -89,6 +89,8 @@ function compile(sourceFileMap, options = {}) {
 
     if (!REG.ts.test(newKey)) {
       newKey = newKey + ".ts";
+      store.idMap[newKey] = key;
+    } else {
       store.idMap[newKey] = key;
     }
 
@@ -127,7 +129,7 @@ function compile(sourceFileMap, options = {}) {
       );
 
       errList.push(
-        `${store.idMap[diagnostic.file.fileName]} (${line + 1},${character + 1}): ${message}`
+        `${store.idMap[diagnostic.file.fileName] || diagnostic.file.fileName} (${line + 1},${character + 1}): ${message}`
       );
     } else {
       errList.push(
