@@ -6,7 +6,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": [
+    "typescript", "memory", "compile"
+  ],
+  "files": [
+    "yarn.lock",
+    "index.js"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
