@@ -87,12 +87,17 @@ function compile(sourceFileMap, options = {}) {
   Object.keys(sourceFileMap).forEach(key => {
     let newKey = key;
 
+    /**
+     * windows
+     */
+    newKey = key.replace(/\\+/g, "/");
+
     if (!REG.ts.test(newKey)) {
       newKey = newKey + ".ts";
       store.idMap[newKey] = key;
-    } else {
-      store.idMap[newKey] = key;
     }
+
+    store.idMap[newKey] = key;
 
     store.sourceFileMap[newKey] = sourceFileMap[key];
   });
